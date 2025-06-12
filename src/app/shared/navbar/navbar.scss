@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 50;
+}
+
+.nav-link {
+  @apply text-white font-medium px-2 py-1 rounded transition duration-150 hover:bg-blue-800 hover:text-orange-300;
+  &.active-link, &:focus {
+    color: #f59e0b !important;
+    font-weight: 700;
+    border-bottom: 2px solid #f59e0b;
+    background: #1e293b33;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.5,1.5,0.7,1) both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px);}
+  to   { opacity: 1; transform: none;}
+}

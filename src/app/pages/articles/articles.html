@@ -1,0 +1,14 @@
+<section class="container mx-auto py-8">
+  <h1 class="text-3xl font-bold mb-6 text-blue-900">Liste des articles</h1>
+  
+ <ng-container *ngIf="isLoading; else articlesList">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <app-loader-skeleton *ngFor="let i of [].constructor(skeletonCount)"></app-loader-skeleton>
+  </div>
+</ng-container>
+  <ng-template #articlesList>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+    </div>
+  </ng-template>
+</section>
