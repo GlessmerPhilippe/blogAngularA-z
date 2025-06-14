@@ -1,0 +1,4 @@
+.nav-btn {
+  @apply flex items-center px-4 py-2 rounded bg-white border shadow text-blue-700 font-semibold
+    transition hover:bg-blue-50 focus:ring-2 focus:ring-blue-300 outline-none;
+}

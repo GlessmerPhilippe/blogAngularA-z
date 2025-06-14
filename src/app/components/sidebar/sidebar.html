@@ -1,0 +1,28 @@
+<aside
+  class="flex flex-col gap-6 top-6 h-fit"
+>
+  <!-- Chaque bloc devient une "glass card" -->
+  <div class="glass-card group transition duration-300">
+    <app-search-box></app-search-box>
+  </div>
+  <div class="glass-card group transition duration-300">
+    <ng-container *ngIf="isLoading; else categoriesList">
+      <app-loader-categories-skeleton></app-loader-categories-skeleton>
+    </ng-container>
+    <ng-template #categoriesList>
+      <app-category-filter [categories]="categories"></app-category-filter>
+    </ng-template>
+  </div>
+  <div class="glass-card group transition duration-300">
+    <ng-container *ngIf="isLoading; else tagsList">
+      <app-loader-categories-skeleton></app-loader-categories-skeleton>
+    </ng-container>
+    <ng-template #tagsList>
+      <app-tags-cloud [tags]="tags"></app-tags-cloud>
+    </ng-template>
+  </div>
+
+  <div class="glass-card group transition duration-300">
+    <app-articles-related [article]="article"></app-articles-related>
+  </div>
+</aside>

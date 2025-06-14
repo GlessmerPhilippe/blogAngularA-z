@@ -1,1 +1,26 @@
-<p>article-detail works!</p>
+<app-progress-bar></app-progress-bar>
+<section class="container mx-auto py-10">
+  <div class="flex flex-col lg:flex-row gap-8">
+    <!-- Colonne principale -->
+    <div class="w-full lg:w-2/3 flex flex-col gap-8">
+      <ng-container *ngIf="isLoading; else articleDetail">
+        <app-loader-article-content-skeleton></app-loader-article-content-skeleton>
+      </ng-container>
+      <ng-template #articleDetail>
+        <app-article-content [article]="article"></app-article-content>
+        <!-- Sous le contenu de l'article -->
+        <app-article-navigation
+          [previous]="previousArticle"
+          [next]="nextArticle"
+        ></app-article-navigation>
+      </ng-template>
+      <app-article-comments [articleId]="article?.id"></app-article-comments>
+
+      <!-- <app-comment-list [articleId]="article?.id"></app-comment-list> -->
+    </div>
+    <!-- Colonne latérale -->
+    <aside class="w-full lg:w-1/3 flex flex-col gap-6  sticky top-6 h-fit">
+      <app-sidebar [article]="article"></app-sidebar>
+    </aside>
+  </div>
+</section>

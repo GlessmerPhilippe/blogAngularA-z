@@ -1,0 +1,18 @@
+/* :host cible l'élément racine du composant Sidebar */
+:host { 
+  display: block; 
+}
+.glass-card {
+  @apply bg-white/60 dark:bg-slate-900/60
+    backdrop-blur-lg
+    rounded-2xl
+    border
+    border-slate-200/70
+    shadow-xl
+    hover:shadow-2xl
+    transition
+    duration-300
+    p-5
+    relative
+    overflow-hidden;
+}

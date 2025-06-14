@@ -6,7 +6,7 @@ export interface Article {
   content: string;
   featuredImage?: string;
   images: string[];
-  videos: string[];
+ videos: ArticleVideo[];
   author: {
     id: string;
     username: string;
@@ -35,4 +35,9 @@ export interface Tag {
   id: string;
   name: string;
   slug: string;
+}
+export interface ArticleVideo {
+  url: string;
+  title: string;
+  provider: 'youtube' | 'vimeo' | 'other';
 }

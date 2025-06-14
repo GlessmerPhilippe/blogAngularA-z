@@ -1,0 +1,6 @@
+:host {
+  display: block;
+}
+a:focus {
+  @apply ring-2 ring-blue-400;
+}

@@ -1,0 +1,28 @@
+<div class="bg-white rounded-xl shadow border p-6">
+  <h3 class="text-xl font-bold mb-4 text-blue-900">Commentaires ({{ comments.length }})</h3>
+
+  <ng-container *ngIf="isLoading; else commentsList">
+    <app-loader-comment-skeleton *ngFor="let i of [1,2,3]"></app-loader-comment-skeleton>
+  </ng-container>
+  <ng-template #commentsList>
+    <div *ngFor="let c of comments" class="flex gap-3 items-start mb-4">
+      <img [src]="c.author.avatar" class="w-10 h-10 rounded-full border" />
+      <div class="flex-1">
+        <div class="font-semibold text-blue-700">{{ c.author.username }}</div>
+        <div class="text-gray-800 mb-1">{{ c.content }}</div>
+        <div class="text-xs text-gray-500">{{ c.createdAt | date:'short' }}</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <form (submit)="addComment(); $event.preventDefault();" class="mt-6 flex gap-2">
+    <input
+      type="text"
+      [(ngModel)]="newComment"
+      placeholder="Ajouter un commentaire…"
+      class="flex-1 border rounded p-2 focus:outline-blue-400"
+      name="comment"
+    />
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Envoyer</button>
+  </form>
+</div>

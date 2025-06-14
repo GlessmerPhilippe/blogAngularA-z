@@ -1,0 +1,35 @@
+<nav class="flex flex-wrap justify-between items-center p-4 rounded-xl shadow  bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+  <!-- Précédent -->
+  <div class="w-1/3 flex">
+    <a *ngIf="previous"
+       [routerLink]="['/articles', previous?.id]"
+       class="nav-btn group ml-0  w-full">
+      <svg class="w-5 h-5 mr-2 -ml-1 text-blue-400 group-hover:translate-x-[-3px] transition"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Article précédent
+    </a>
+  </div>
+  <!-- Retour -->
+  <div class="w-1/3 flex justify-center">
+    <a [routerLink]="['/articles']" class="nav-btn w-full group">
+      <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+      </svg>
+      Retour à la liste
+    </a>
+  </div>
+  <!-- Suivant -->
+  <div class="w-1/3 flex justify-end">
+    <a *ngIf="next"
+       [routerLink]="['/articles', next?.id]"
+       class="nav-btn group p-4 ml-auto w-full text-right">
+      Article suivant
+      <svg class="w-5 h-5 ml-2 -mr-1 text-blue-400 group-hover:translate-x-[3px] transition"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+  </div>
+</nav>

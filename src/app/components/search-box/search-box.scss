@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.result-list {
+  @apply bg-white rounded-xl shadow border max-h-72 overflow-auto z-20 relative mt-2;
+  // Pour dark mode :
+  @apply dark:bg-gray-800 dark:border-gray-700;
+}
+
+.result-item {
+  @apply px-4 py-3 border-b last:border-0 transition flex flex-col gap-0.5 cursor-pointer;
+  @apply hover:bg-blue-50 hover:border-l-4 hover:border-blue-400;
+  @apply focus:bg-blue-100;
+  // Dark mode :
+  @apply dark:hover:bg-blue-900/30 dark:hover:border-blue-500;
+}
+
+.result-title {
+  @apply font-semibold text-blue-900 truncate;
+  @apply dark:text-blue-200;
+}
+
+.result-excerpt {
+  @apply text-xs text-gray-500 truncate;
+  @apply dark:text-gray-400;
+}

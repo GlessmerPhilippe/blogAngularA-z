@@ -1,0 +1,45 @@
+<div>
+  <h4 class="font-semibold mb-3 flex items-center gap-2 text-blue-700">
+    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 7l-5 5 5 5"></path>
+    </svg>
+    Articles similaires
+  </h4>
+  <ng-container *ngIf="!isLoading; else loader">
+    <div *ngIf="related.length; else noRelated" class="flex flex-col gap-4">
+      <a *ngFor="let art of related"
+         class="group flex gap-3 rounded-xl border bg-white/60 hover:bg-white/80 shadow p-3 transition-all cursor-pointer focus:ring-2 focus:ring-blue-400 outline-none"
+         [routerLink]="['/articles', art.id]"
+         tabindex="0"
+      >
+        <img *ngIf="art.featuredImage" [src]="art.featuredImage"
+          class="w-14 h-14 rounded-lg object-cover border flex-shrink-0 group-hover:scale-105 transition"
+          alt="Miniature article" />
+        <div class="flex-1 flex flex-col min-w-0">
+          <div class="truncate font-bold text-blue-800 group-hover:text-blue-600 text-sm">{{ art.title }}</div>
+          <div class="truncate text-gray-500 text-xs">{{ art.excerpt }}</div>
+          <div class="flex flex-wrap gap-1 mt-1">
+            <span *ngFor="let cat of art.categories"
+              class="inline-flex items-center bg-blue-100 text-blue-600 rounded px-2 py-0.5 text-xs font-semibold">
+              #{{ cat.name }}
+            </span>
+            <span *ngFor="let tag of art.tags"
+              class="inline-flex items-center bg-orange-100 text-orange-600 rounded px-2 py-0.5 text-xs font-semibold">
+              #{{ tag.name }}
+            </span>
+          </div>
+          <div class="flex gap-2 mt-1 text-[11px] text-gray-400">
+            <span>👁️ {{ art.viewCount }}</span>
+            <span>👍 {{ art.likeCount }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <ng-template #noRelated>
+      <div class="text-xs text-gray-400 italic p-2">Aucun article similaire trouvé.</div>
+    </ng-template>
+  </ng-container>
+  <ng-template #loader>
+    <app-loader-articles-related-skeleton></app-loader-articles-related-skeleton>
+  </ng-template>
+</div>
