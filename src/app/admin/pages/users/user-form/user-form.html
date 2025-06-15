@@ -1,0 +1,59 @@
+<!-- src/app/admin/pages/users/user-form/user-form.html -->
+<div class="p-6 max-w-2xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6">
+    {{ isEditMode ? '✏️ Modifier un utilisateur' : '➕ Ajouter un utilisateur' }}
+  </h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
+
+    <div>
+      <label class="block mb-1 font-medium">Prénom *</label>
+      <input type="text" formControlName="firstName" class="input-field" />
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Nom *</label>
+      <input type="text" formControlName="lastName" class="input-field" />
+    </div>
+
+
+    <div>
+      <label class="block mb-1 font-medium">Pseudo *</label>
+      <input type="text" formControlName="pseudo" class="input-field" />
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Email *</label>
+      <input type="email" formControlName="email" class="input-field" />
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Mot de passe <span *ngIf="!isEditMode">*</span></label>
+      <input type="password" formControlName="password" class="input-field" [required]="!isEditMode" />
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Avatar (URL)</label>
+      <input type="url" formControlName="avatar" class="input-field" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label *ngFor="let role of allRoles">
+        <input type="checkbox" [value]="role" (change)="onRoleChange($event)" [checked]="form.value.roles.includes(role)" />
+        {{ role }}
+      </label>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <input type="checkbox" formControlName="isActive" id="isActive" class="rounded" />
+      <label for="isActive">Actif</label>
+    </div>
+
+    <div class="pt-4 flex justify-between">
+      <button type="button" (click)="router.navigate(['/admin/users'])" class="btn-secondary">⬅️ Annuler</button>
+      <button type="submit" class="btn-primary" [disabled]="form.invalid || loading">
+        {{ isEditMode ? '💾 Enregistrer' : '✅ Créer' }}
+      </button>
+    </div>
+  </form>
+</div>

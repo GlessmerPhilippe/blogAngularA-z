@@ -1,0 +1,9 @@
+<label class="block text-sm font-medium text-gray-700 mb-2">📁 Catégories</label>
+<select
+  class="w-full px-3 py-2  border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+  (change)="onSelectionChange($event)"
+>
+  <option *ngFor="let category of categories" [value]="category.id" [selected]="isSelected(category)">
+    {{ category.name }}
+  </option>
+</select>

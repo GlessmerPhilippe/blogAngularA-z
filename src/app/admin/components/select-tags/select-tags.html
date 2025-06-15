@@ -1,0 +1,39 @@
+<div>
+  <label class="block text-sm font-medium text-gray-700 mb-1">🏷️ Tags</label>
+
+  <!-- 🟦 Tags sélectionnés -->
+  <div class="flex flex-wrap gap-2 mb-2">
+    <span
+      *ngFor="let tag of selected"
+      class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm flex items-center"
+    >
+      {{ tag }}
+      <button
+        (click)="removeTag(tag)"
+        class="ml-1 text-blue-500 hover:text-red-500"
+      >
+        &times;
+      </button>
+    </span>
+  </div>
+
+  <!-- ➕ Input -->
+  <input
+    [(ngModel)]="inputValue"
+    (keydown)="handleKey($event)"
+    placeholder="Ajouter un tag et appuyer sur Entrée"
+    class="w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500"
+    autocomplete="off"
+  />
+
+  <!-- 💡 Suggestions -->
+  <div *ngIf="inputValue.length > 0" class="mt-2 space-y-1">
+    <div
+      *ngFor="let tag of filteredTags"
+      (click)="inputValue = tag; addTag()"
+      class="cursor-pointer px-3 py-1 bg-gray-100 hover:bg-blue-100 rounded text-sm"
+    >
+      + {{ tag }}
+    </div>
+  </div>
+</div>

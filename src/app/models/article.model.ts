@@ -16,7 +16,7 @@ export interface Article {
   };
   categories: Category[];
   tags: Tag[];
-  status: 'draft' | 'published' | 'archived';
+  status: 'draft' | 'published' | 'archived'  | 'pending';
   isPublished: boolean;
   publishedAt?: Date;
   viewCount: number;
@@ -26,18 +26,29 @@ export interface Article {
   createdAt: Date;
   updatedAt: Date;
 }
+// src/app/models/article.model.ts
 export interface Category {
-  id: string;
+  id: string; // <-- adapte ici (remplace 'string' si nécessaire)
   name: string;
-  slug: string;
+  slug?: string;
 }
+
 export interface Tag {
-  id: string;
+  id: string; // <-- adapte ici aussi
   name: string;
-  slug: string;
+  slug?: string;
 }
 export interface ArticleVideo {
   url: string;
   title: string;
   provider: 'youtube' | 'vimeo' | 'other';
+}
+export interface ArticleResponse {
+  articles: Article[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
 }

@@ -1,0 +1,34 @@
+<div class="fixed top-20 right-4 z-50 flex flex-col gap-3 w-[320px]">
+  <div
+    *ngFor="let toast of toasts()"
+    class="relative overflow-hidden p-4 pr-10 rounded-xl shadow-lg bg-white text-gray-800 border-l-4"
+    [ngClass]="{
+      'border-green-500': toast.type === 'success',
+      'border-red-500': toast.type === 'error',
+      'border-blue-500': toast.type === 'info'
+    }"
+  >
+    <div class="flex justify-between items-center">
+      <span>{{ toast.message }}</span>
+      <button
+        class="ml-4 text-gray-400 hover:text-gray-600"
+        (click)="dismiss(toast.id)"
+        title="Fermer"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- ✅ Progress bar -->
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-200">
+      <div
+        class="h-full animate-progress-bar"
+        [ngClass]="{
+          'bg-green-500': toast.type === 'success',
+          'bg-red-500': toast.type === 'error',
+          'bg-blue-500': toast.type === 'info'
+        }"
+      ></div>
+    </div>
+  </div>
+</div>

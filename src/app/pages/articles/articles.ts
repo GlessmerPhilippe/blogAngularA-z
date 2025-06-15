@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, NgIf, NgForOf } from '@angular/common';
 import { ArticleCardComponent } from '../../components/article-card/article-card';
 import { LoaderSkeleton } from '../../shared/loader-skeleton/loader-skeleton';
-import { ARTICLES_MOCK } from '../../mocks/articles-mock'; // Crée ce fichier pour tes mocks
+import { ArticleService } from '../../services/article.service';
+import { Article } from '../../models/article.model';
 
 @Component({
   selector: 'app-articles',
@@ -12,14 +13,28 @@ import { ARTICLES_MOCK } from '../../mocks/articles-mock'; // Crée ce fichier p
   styleUrls: ['./articles.scss']
 })
 export class ArticlesComponent {
-  isLoading = true;
-  articles = ARTICLES_MOCK;
+  private articleService = inject(ArticleService);
 
-  constructor() {
-    setTimeout(() => this.isLoading = false, 1200); // Simule le chargement
-  }
-  skeletonCount = 12; // ou le nombre d’articles attendus
+  articles: Article[] = [];
+  isLoading = true;
+
+  skeletonCount = 12;
   get skeletonArray() {
     return Array(this.skeletonCount);
+  }
+
+  ngOnInit(): void {
+    this.articleService.getAll({ isPublished: true }).subscribe({
+      next: (response) => {
+         this.articles = response.articles; // 👈 utiliser "articles" et non "data"
+      },
+      error: () => {
+        console.error('Erreur lors du chargement des articles.');
+        this.articles = [];
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }

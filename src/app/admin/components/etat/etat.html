@@ -1,0 +1,10 @@
+<div class="flex gap-2">
+  <button
+    *ngFor="let option of options"
+    (click)="setValue(option.value)"
+    class="px-4 py-2 rounded-full border text-sm font-medium transition"
+    [ngClass]="getButtonClasses(option)"
+  >
+    {{ option.label }}
+  </button>
+</div>

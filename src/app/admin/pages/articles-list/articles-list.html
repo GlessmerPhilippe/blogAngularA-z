@@ -1,1 +1,66 @@
-<p>articles-list works!</p>
+<section class="p-6 space-y-8">
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-800">📝 Sommaire des articles</h1>
+    <a routerLink="/admin/articles/new"
+       class="btn-primary transition">
+      ➕ Ajouter un article
+    </a>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="card p-4 text-center">
+      <div class="text-sm text-gray-500">Publié</div>
+      <div class="text-2xl font-bold text-green-600">{{ stats.published }}</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-sm text-gray-500">Brouillons</div>
+      <div class="text-2xl font-bold text-yellow-500">{{ stats.draft }}</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-sm text-gray-500">En attente</div>
+      <div class="text-2xl font-bold text-orange-500">{{ stats.pending }}</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-sm text-gray-500">Commentaires</div>
+      <div class="text-2xl font-bold text-blue-600">{{ stats.comments }}</div>
+    </div>
+  </div>
+
+  <!-- Tableau -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white rounded-lg shadow text-sm">
+      <thead>
+        <tr class="bg-gray-100 text-gray-700 uppercase text-xs">
+          <th class="px-4 py-2 text-left">Titre</th>
+          <th class="px-4 py-2 text-left">Auteur</th>
+          <th class="px-4 py-2">Statut</th>
+          <th class="px-4 py-2">📅 Publié</th>
+          <th class="px-4 py-2">💬</th>
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let article of articles" class="border-t hover:bg-gray-50">
+          <td class="px-4 py-2 font-medium">{{ article.title }}</td>
+          <td class="px-4 py-2">{{ article.author.firstName }} {{ article.author.lastName }}</td>
+          <td class="px-4 py-2">
+            <span [ngClass]="{
+              'text-green-600 font-bold': article.status === 'published',
+              'text-yellow-500 font-medium': article.status === 'draft',
+              'text-orange-600 font-medium': article.status === 'pending'
+            }">
+              {{ article.status }}
+            </span>
+          </td>
+          <td class="px-4 py-2">{{ article.publishedAt | date:'shortDate' }}</td>
+          <td class="px-4 py-2 text-center">{{ article.commentCount }}</td>
+          <td class="px-4 py-2 flex gap-2">
+            <a [routerLink]="['/admin/articles/edit', article.id]" class="text-blue-600 hover:underline">✏️</a>
+            <button class="text-red-600 hover:underline">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

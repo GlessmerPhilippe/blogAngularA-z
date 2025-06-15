@@ -2,43 +2,50 @@
   <!-- Logo -->
   <a routerLink="/" class="font-extrabold text-xl text-white flex items-center gap-2">
     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10" fill="#f59e0b"/>
-      <path d="M7 14s1.5-2 5-2 5 2 5 2" stroke="#fff" stroke-width="2" fill="none"/>
-      <circle cx="9" cy="10" r="1" fill="#fff"/>
-      <circle cx="15" cy="10" r="1" fill="#fff"/>
+      <circle cx="12" cy="12" r="10" fill="#f59e0b" />
+      <path d="M7 14s1.5-2 5-2 5 2 5 2" stroke="#fff" stroke-width="2" fill="none" />
+      <circle cx="9" cy="10" r="1" fill="#fff" />
+      <circle cx="15" cy="10" r="1" fill="#fff" />
     </svg>
     Blog Multimédia
   </a>
-  
+
   <!-- Menu Desktop -->
-  <ul class="hidden md:flex gap-8 ml-8">
-    <li><a routerLink="/articles" routerLinkActive="active-link" class="nav-link">Articles</a></li>
-    <li><a routerLink="/categories" routerLinkActive="active-link" class="nav-link">Catégories</a></li>
-    <li><a routerLink="/notifications" routerLinkActive="active-link" class="nav-link">Notifications</a></li>
-  </ul>
+<ul class="hidden md:flex gap-8 ml-8 text-white font-medium">
+  <li><a routerLink="/articles" routerLinkActive="active-link" class="nav-link">Articles</a></li>
+  <li><a routerLink="/categories" routerLinkActive="active-link" class="nav-link">Catégories</a></li>
+  <li><a routerLink="/notifications" routerLinkActive="active-link" class="nav-link">Notifications</a></li>
+</ul>
 
   <!-- Actions à droite -->
-  <div class="hidden md:flex items-center gap-3">
-    <a routerLink="/login" class="px-4 py-2 rounded bg-orange-400 hover:bg-orange-500 text-white font-semibold shadow transition">Connexion</a>
+  <div class="hidden md:flex items-center gap-4">
+    <ng-container *ngIf="auth.isAuthenticated(); else loginButton">
+      <div class="relative user-menu">
+        <button (click)="toggleDropdown()" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white hover:bg-gray-100 text-gray-800 shadow transition">
+          <img [src]="auth.getCurrentUser()?.avatar" class="w-8 h-8 rounded-full border" />
+          <span class="font-medium">{{ auth.getCurrentUser()?.firstName }}</span>
+          <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div *ngIf="dropdownOpen()" class="dropdown-panel animate-fade-in">
+          <a routerLink="/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">👤 Profil</a>
+          <a *ngIf="auth.getCurrentUser()?.roles?.includes('ROLE_ADMIN')" routerLink="/admin" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">🛠️ Admin</a>
+          <button (click)="logout()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">🚪 Déconnexion</button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #loginButton>
+      <a routerLink="/login" class="px-4 py-2 rounded bg-orange-400 hover:bg-orange-500 text-white font-semibold shadow transition">Connexion</a>
+    </ng-template>
   </div>
 
   <!-- Burger menu (Mobile) -->
-  <button (click)="toggleMenu()" class="md:hidden text-white p-2">
-    <svg *ngIf="!menuOpen()" class="w-7 h-7" fill="none" viewBox="0 0 24 24">
-      <path stroke="#fff" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-    </svg>
-    <svg *ngIf="menuOpen()" class="w-7 h-7" fill="none" viewBox="0 0 24 24">
-      <path stroke="#fff" stroke-width="2" d="M6 6l12 12M6 18L18 6"/>
+  <button class="md:hidden text-white p-2">
+    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24">
+      <path stroke="#fff" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
     </svg>
   </button>
-
-  <!-- Mobile Menu -->
-  <div *ngIf="menuOpen()" class="absolute top-16 left-0 w-full z-50 bg-gradient-to-r from-blue-700 to-indigo-900 shadow-lg md:hidden animate-fade-in">
-    <ul class="flex flex-col gap-3 px-8 py-4">
-      <li><a routerLink="/articles" routerLinkActive="active-link" class="nav-link" (click)="closeMenu()">Articles</a></li>
-      <li><a routerLink="/categories" routerLinkActive="active-link" class="nav-link" (click)="closeMenu()">Catégories</a></li>
-      <li><a routerLink="/notifications" routerLinkActive="active-link" class="nav-link" (click)="closeMenu()">Notifications</a></li>
-      <li><a routerLink="/login" class="px-4 py-2 rounded bg-orange-400 hover:bg-orange-500 text-white font-semibold shadow transition block text-center" (click)="closeMenu()">Connexion</a></li>
-    </ul>
-  </div>
 </nav>

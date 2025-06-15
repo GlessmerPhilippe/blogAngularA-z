@@ -1,0 +1,18 @@
+<div class="flex flex-col min-h-screen bg-white text-gray-800">
+  <!-- Header sticky -->
+  <header class="sticky top-0 z-30 shadow bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+    <app-public-navbar></app-public-navbar>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 container mx-auto px-4 py-8">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer bas de page -->
+  <footer class="bg-gray-100 border-t text-sm text-center py-4 text-gray-500">
+    © 2025 Blog Multimédia — Tous droits réservés. |
+    <a href="/contact" class="hover:underline">Contact</a> |
+    <a href="/mentions-legales" class="hover:underline">Mentions légales</a>
+  </footer>
+</div>
